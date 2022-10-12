@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"golangapi/routes"
 )
 
 func main() {
-	router := gin.Default()
-	router.Run()
+	server := routes.CreateRouter()
+	server.Run()
 }
