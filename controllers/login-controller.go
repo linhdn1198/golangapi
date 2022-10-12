@@ -11,11 +11,11 @@ type LoginController interface {
 	Login(ctx *gin.Context)
 }
 
-type controller struct {
+type loginController struct {
 	service services.UserService
 }
 
-func (c *controller) Login(ctx *gin.Context) {
+func (c *loginController) Login(ctx *gin.Context) {
 	username := ctx.PostForm("username")
 	user := c.service.GetUser(username)
 	if user.Id == 0 {
@@ -32,8 +32,8 @@ func (c *controller) Login(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, accessToken)
 }
 
-func New(service services.UserService) LoginController {
-	return &controller{
+func NewLoginController(service services.UserService) LoginController {
+	return &loginController{
 		service: service,
 	}
 }

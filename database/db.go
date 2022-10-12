@@ -24,6 +24,7 @@ func GetConnection() (*gorm.DB) {
 	log.Println("DB Connection established...")
 
 	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.Hotel{})
  
 	return db
 }

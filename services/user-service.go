@@ -17,14 +17,10 @@ func (service *userService) GetUser(username string) models.User {
 	db := database.GetConnection()
 	var User models.User
 	db.Where("username = ? ", username).Find(&User);
-	// match := util.CheckPasswordHash(password, User.Password)
-	// if match {
-	// 	return User
-	// }
 
 	return User
 }
 
-func New() UserService {
+func NewUserService() UserService {
 	return &userService{}
 }

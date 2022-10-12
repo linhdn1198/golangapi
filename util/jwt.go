@@ -5,6 +5,7 @@ import (
 	"time"
 	"github.com/golang-jwt/jwt/v4"
 )
+
 var hmacSampleSecret []byte
 
 func Generate(username string) string {
