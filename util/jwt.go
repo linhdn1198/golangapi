@@ -2,11 +2,12 @@ package util
 
 import (
 	"fmt"
+	"os"
 	"time"
 	"github.com/golang-jwt/jwt/v4"
 )
 
-var hmacSampleSecret []byte
+var hmacSampleSecret = []byte(os.Getenv("JWT_KEY"))
 
 func Generate(username string) string {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{

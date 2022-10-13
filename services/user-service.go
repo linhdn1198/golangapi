@@ -15,10 +15,9 @@ type userService struct {
 
 func (service *userService) GetUser(username string) models.User {
 	db := database.GetConnection()
-	var User models.User
-	db.Where("username = ? ", username).Find(&User);
+	db.Where("username = ? ", username).Find(&service.user);
 
-	return User
+	return service.user
 }
 
 func NewUserService() UserService {

@@ -15,10 +15,9 @@ type hotelService struct {
 
 func (service *hotelService) GetHotels(offset, limit int) []models.Hotel {
 	db := database.GetConnection()
-	var Hotels []models.Hotel
-	db.Limit(limit).Offset(offset).Find(&Hotels)
+	db.Limit(limit).Offset(offset).Find(&service.hotels)
 
-	return Hotels
+	return service.hotels
 }
 
 func NewHotelService() HotelService {

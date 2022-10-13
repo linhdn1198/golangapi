@@ -22,14 +22,18 @@ func (c *loginController) Login(ctx *gin.Context) {
 		ctx.JSON(http.StatusUnauthorized, http.StatusText(http.StatusUnauthorized))
 		return
 	}
+
 	password := ctx.PostForm("password")
-	match := util.CheckPasswordHash(password, user.Password)
-	if !match {
+	if match := util.CheckPasswordHash(password, user.Password); !match {
 		ctx.JSON(http.StatusUnauthorized, http.StatusText(http.StatusUnauthorized))
 		return
 	}
+
 	accessToken := util.Generate(user.Username)
-	ctx.JSON(http.StatusOK, accessToken)
+	ctx.JSON(http.StatusOK, gin.H{
+		"username": user.Username,
+		"access_token": accessToken,
+	})
 }
 
 func NewLoginController(service services.UserService) LoginController {

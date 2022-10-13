@@ -2,19 +2,14 @@ package database
 
 import (
 	"log"
+	"os"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"golangapi/models"
 )
  
-const DB_USERNAME = "root"
-const DB_PASSWORD = "123456"
-const DB_NAME = "golang"
-const DB_HOST = "localhost"
-const DB_PORT = "3306"
- 
 func GetConnection() (*gorm.DB) {
-	dsn := DB_USERNAME +":"+ DB_PASSWORD +"@tcp"+ "(" + DB_HOST + ":" + DB_PORT +")/" + DB_NAME + "?" + "parseTime=true&loc=Local"
+	dsn := os.Getenv("DB_USERNAME") +":"+ os.Getenv("DB_PASSWORD") +"@tcp"+ "(" + os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT") +")/" + os.Getenv("DB_NAME") + "?" + "parseTime=true&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
  
 	if err != nil {
@@ -23,8 +18,7 @@ func GetConnection() (*gorm.DB) {
 
 	log.Println("DB Connection established...")
 
-	db.AutoMigrate(&models.User{})
-	db.AutoMigrate(&models.Hotel{})
+	db.AutoMigrate(&models.User{}, &models.Hotel{})
  
 	return db
 }
